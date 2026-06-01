@@ -9,7 +9,7 @@ dimensions et l'essence de bois choisie.
 > réalisation concept illustre le type de vitrine que je conçois pour les artisans. Aucun
 > établissement réel, aucune donnée n'est enregistrée.
 
-🔗 **Démo en ligne :** _(à déployer — Vercel)_
+🔗 **Démo en ligne :** [atelier-vernier.vercel.app](https://atelier-vernier.vercel.app)
 
 ## Aperçu
 
