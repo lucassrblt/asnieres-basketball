@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+/* ============================================================
+   ATELIER VERNIER — menuiserie sur-mesure
+   Naturel-éditorial : papier crème, noyer, vert forêt, chêne.
+   ============================================================ */
+
+:root {
+  --paper: #f3ede1;
+  --paper-2: #e9e0cf;
+  --paper-3: #ded2bc;
+  --ink: #221d16;
+  --ink-soft: #5c5142;
+  --forest: #34503f;
+  --forest-deep: #243a2d;
+  --oak: #b06a3a;
+  --line: rgba(34, 29, 22, 0.14);
+  --line-strong: rgba(34, 29, 22, 0.3);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-forest: var(--forest);
+  --color-oak: var(--oak);
+  --color-line: var(--line);
+
+  --font-display: var(--font-instrument), Georgia, serif;
+  --font-body: var(--font-hanken), system-ui, sans-serif;
+}
+
+* {
+  border-color: var(--line);
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+::selection {
+  background: var(--forest);
+  color: var(--paper);
+}
+
+/* Texture papier subtile */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Typo ---------- */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+.font-body {
+  font-family: var(--font-body);
+}
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--forest);
+}
+.display-xl {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 11vw, 9.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.01em;
+}
+.display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 6.5vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+.display-md {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1;
+}
+.italic-accent {
+  font-style: italic;
+  color: var(--oak);
+}
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  padding: 0.95rem 1.7rem;
+  border-radius: 999px;
+  background: var(--forest);
+  color: var(--paper);
+  border: 1px solid var(--forest);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.btn:hover {
+  background: var(--forest-deep);
+  border-color: var(--forest-deep);
+  transform: translateY(-2px);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.link-u {
+  position: relative;
+}
+.link-u::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: var(--oak);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.link-u:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ---------- Photo slot (grain bois) ---------- */
+.wood-slot {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(176, 106, 58, 0.07) 0px,
+      rgba(176, 106, 58, 0.07) 2px,
+      transparent 2px,
+      transparent 9px
+    ),
+    linear-gradient(160deg, var(--paper-3), var(--paper-2));
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.wood-slot::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0.9rem;
+  left: 0.9rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ---------- Animations ---------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.reveal {
+  opacity: 0;
+  animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+    opacity: 1;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.rule {
+  height: 1px;
+  background: var(--line);
+}
