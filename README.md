@@ -1,50 +1,49 @@
-# Atelier Vernier — Site vitrine menuiserie sur-mesure
+# Asnières Basketball — Site vitrine club de basket
 
-Site vitrine d'un menuisier-agenceur avec **estimateur de devis en ligne** : savoir-faire,
-réalisations, comparateur avant/après, méthode, zone d'intervention et avis, puis un
-configurateur qui calcule une **fourchette de prix en temps réel** selon le projet, ses
-dimensions et l'essence de bois choisie.
+Site vitrine d'un club de basket : page d'accueil avec **hero**, **actualités du club**,
+**accès rapides**, présentation du club et **chiffres clés**, **équipes 2025-26**,
+**partenaires** et **newsletter**, le tout dans une identité sportive marine / rouge / blanc.
 
-> ⚠️ **Projet de démonstration.** « Atelier Vernier » est une **enseigne fictive** : cette
-> réalisation concept illustre le type de vitrine que je conçois pour les artisans. Aucun
-> établissement réel, aucune donnée n'est enregistrée.
+> ⚠️ **Projet de démonstration.** « Asnières Basketball » est un **club fictif** : cette
+> réalisation concept illustre le type de vitrine que je conçois pour les associations
+> sportives. Aucune donnée n'est enregistrée.
 
-🔗 **Démo en ligne :** [atelier-vernier.vercel.app](https://atelier-vernier.vercel.app)
+🔗 **Démo en ligne :** [asnieresbasketball.vercel.app](https://asnieresbasketball.vercel.app)
 
 ## Aperçu
 
-- **Direction artistique** naturel-éditorial : papier crème, noyer & vert forêt, serif élégante
-  (Instrument Serif) × grotesque (Hanken Grotesk), texture papier — à l'opposé volontaire d'un
-  thème sombre, pour démontrer une vraie amplitude de design.
-- **Estimateur de devis** : calcul d'une fourchette côté serveur, mis à jour en direct quand on
-  ajuste les dimensions ou la finition.
-- **Comparateur avant/après** interactif (glisser-déposer, tactile compris).
+- **Direction artistique** sportive : bleu marine, rouge & blanc, typographie condensée
+  (Anton) × grotesque (Oswald / Inter), pour une identité dynamique de club.
+- **Page d'accueil** orientée club : hero, actualités, accès rapides, équipes, partenaires,
+  newsletter et footer riche (contacts, accès rapides, catégories).
+- **Navigation** à menus déroulants (Club, Équipes, Championnats) + menu mobile.
+- **Placeholders images** explicites partout où le visuel réel n'est pas fourni.
 - **100 % responsive**, animations au scroll, `prefers-reduced-motion` respecté.
 
 ## Stack
 
 - **Next.js 16** (App Router) + **React 19** + **TypeScript**
 - **Tailwind CSS v4**
-- **Route handlers Node** (`/api/estimate`, `/api/quote`) + **Zod** pour la validation
-- **next/font** (Google Fonts auto-hébergées)
+- **next/font** (Google Fonts auto-hébergées : Anton, Oswald, Inter)
 
 ## Architecture
 
 ```
 app/
-├── page.tsx              # Landing : hero, savoir-faire, avant/après, réalisations,
-│                         #          méthode, zone, avis, devis
+├── page.tsx              # Accueil : hero, actualités, accès rapides, club & stats,
+│                         #          équipes, partenaires, newsletter, footer
 ├── layout.tsx            # Fonts + métadonnées SEO/OpenGraph
-├── globals.css           # Design system (tokens, textures, animations)
-└── api/
-    ├── estimate/         # POST — fourchette de prix selon projet/dimensions/essence
-    └── quote/            # POST — validation Zod + référence de devis
+└── globals.css           # Design system (tokens marine/rouge, placeholders, animations)
 components/
-├── Nav.tsx               # En-tête sticky + menu mobile
-├── QuoteFlow.tsx         # Estimateur de devis multi-étapes (client)
-├── BeforeAfter.tsx       # Comparateur avant/après (client)
+├── Nav.tsx               # En-tête sticky + menus déroulants + menu mobile
+├── Logo.tsx              # Écusson lion (placeholder SVG)
+├── NewsCard.tsx          # Carte actualité (badge date)
+├── TeamCard.tsx          # Carte équipe (silhouette joueur)
+├── QuickLink.tsx         # Bloc accès rapide
+├── NewsletterForm.tsx    # Formulaire newsletter (client, démo)
+├── icons.tsx             # Icônes SVG inline
 └── Reveal.tsx            # Apparition au scroll (IntersectionObserver)
-lib/data.ts               # Contenu (projets, essences, réalisations, zone, avis)
+lib/data.ts               # Contenu (club, actus, équipes, partenaires, nav, footer)
 ```
 
 ## Démarrage
@@ -55,11 +54,11 @@ npm run dev      # http://localhost:3000
 npm run build    # build production
 ```
 
-## Mise en production réelle
+## Images
 
-L'estimateur est fonctionnel mais ne persiste rien (démo). Pour une vraie mise en ligne :
-brancher une base (PostgreSQL / Supabase) et un email transactionnel sur `/api/quote`, et
-affiner la grille tarifaire dans `/api/estimate`.
+Tous les visuels manquants utilisent des **placeholders** (classe `.ph` pour les photos,
+écusson SVG pour le logo, cartes texte pour les logos partenaires). Pour la mise en ligne
+réelle, remplacer ces placeholders par les vraies photos du club et les vrais logos partenaires.
 
 ---
 

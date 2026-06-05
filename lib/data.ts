@@ -1,150 +1,168 @@
-/* Données de démonstration — enseigne fictive « Atelier Vernier ». */
+/* Données de démonstration — club fictif « Asnières Basketball ». */
 
-export type ProjectType = {
-  id: string;
-  name: string;
-  desc: string;
-  base: number; // prix de base €
-  perUnit: number; // € par unité de taille
-  unit: string; // libellé unité
-  min: number;
-  max: number;
-  step: number;
+export const club = {
+  name: "Asnières Basketball",
+  shortName: "ASN BB",
+  tagline: "Plus qu'un club, une passion !",
+  baseline: "Plus qu'un club, une famille. Rejoignez l'aventure Asnières Basketball !",
+  address: "138 rue de la Station",
+  city: "92600 Asnières-sur-Seine",
+  phone: "01 47 93 25 80",
+  email: "contact@asnieresbasketball.fr",
+  instagram: "https://instagram.com",
+  facebook: "https://facebook.com",
 };
 
-export const projectTypes: ProjectType[] = [
+/* ---------- Actualités ---------- */
+export type News = {
+  day: string;
+  month: string;
+  title: string;
+  date: string;
+  author: string;
+  excerpt: string;
+  href: string;
+};
+
+export const news: News[] = [
   {
-    id: "cuisine",
-    name: "Cuisine sur-mesure",
-    desc: "Caissons, façades, plan de travail, agencement complet.",
-    base: 4200,
-    perUnit: 950,
-    unit: "mètres linéaires",
-    min: 2,
-    max: 9,
-    step: 1,
+    day: "25",
+    month: "Mai",
+    title: "Match du 30/31 mai",
+    date: "25 mai 2026",
+    author: "ASN BB",
+    excerpt: "U9 reçoit VAL DE SEINE match à 15H00 U11/1 déplacement à PUTEAUX…",
+    href: "#actus",
   },
   {
-    id: "dressing",
-    name: "Dressing / Placard",
-    desc: "Rangements optimisés, portes coulissantes ou battantes.",
-    base: 1600,
-    perUnit: 620,
-    unit: "mètres linéaires",
-    min: 1,
-    max: 7,
-    step: 1,
+    day: "05",
+    month: "Mai",
+    title: "Matchs du 9/10 mai",
+    date: "5 mai 2026",
+    author: "ASN BB",
+    excerpt: "U13F reçoit BOULOGNE match à 18H00…",
+    href: "#actus",
   },
   {
-    id: "escalier",
-    name: "Escalier bois",
-    desc: "Droit, quart-tournant ou hélicoïdal, sur-mesure.",
-    base: 6500,
-    perUnit: 700,
-    unit: "marches",
-    min: 10,
-    max: 20,
-    step: 1,
+    day: "07",
+    month: "Avr",
+    title: "Matchs du 11/12 avril",
+    date: "7 avril 2026",
+    author: "ASN BB",
+    excerpt: "U9 déplacement à CHATILLON match défaite 32/18 U11/1…",
+    href: "#actus",
   },
   {
-    id: "bibliotheque",
-    name: "Bibliothèque / Bureau",
-    desc: "Étagères, niches, bureau intégré, du sol au plafond.",
-    base: 1400,
-    perUnit: 540,
-    unit: "m² de façade",
-    min: 2,
-    max: 14,
-    step: 1,
-  },
-  {
-    id: "mobilier",
-    name: "Mobilier / Table",
-    desc: "Pièce unique : table, console, tête de lit, banc.",
-    base: 1900,
-    perUnit: 220,
-    unit: "personnes (table)",
-    min: 2,
-    max: 12,
-    step: 1,
-  },
-  {
-    id: "agencement",
-    name: "Agencement commerce",
-    desc: "Comptoir, vitrines, mobilier d'accueil pour pro.",
-    base: 3200,
-    perUnit: 480,
-    unit: "m²",
-    min: 5,
-    max: 40,
-    step: 5,
+    day: "23",
+    month: "Mars",
+    title: "Stages de basket – avril 2026",
+    date: "23 mars 2026",
+    author: "ASN BB",
+    excerpt: "Nous annulons la 2ème semaine un seul adhérent…",
+    href: "#actus",
   },
 ];
 
-export type Finish = { id: string; name: string; mult: number; note: string };
+/* ---------- Accès rapides ---------- */
+export type QuickLink = {
+  icon: "teams" | "gym" | "docs" | "contact";
+  title: string;
+  subtitle: string;
+  href: string;
+};
 
-export const finishes: Finish[] = [
-  { id: "chene", name: "Chêne massif", mult: 1.0, note: "Le classique, robuste et chaleureux." },
-  { id: "noyer", name: "Noyer", mult: 1.35, note: "Veinage profond, finition haut de gamme." },
-  { id: "frene", name: "Frêne", mult: 1.1, note: "Clair et nerveux, look contemporain." },
-  { id: "laque", name: "MDF laqué", mult: 1.15, note: "Couleur au choix, finition mate ou satinée." },
-  { id: "plaque", name: "Panneau plaqué", mult: 0.82, note: "Le meilleur rapport rendu / budget." },
+export const quickLinks: QuickLink[] = [
+  { icon: "teams", title: "Nos Équipes", subtitle: "Saison 2025-26", href: "#equipes" },
+  { icon: "gym", title: "Gymnases", subtitle: "Infos & Accès", href: "#contact" },
+  { icon: "docs", title: "Documents", subtitle: "Téléchargements", href: "#contact" },
+  { icon: "contact", title: "Contacts", subtitle: "Nous écrire", href: "#contact" },
 ];
 
-export type Service = { name: string; desc: string };
-export const services: Service[] = [
-  { name: "Cuisines", desc: "De l'épure scandinave au bois massif, conçues autour de votre quotidien." },
-  { name: "Dressings & rangements", desc: "Chaque centimètre exploité, chaque finition pensée." },
-  { name: "Escaliers", desc: "Pièces d'architecture, droites ou suspendues." },
-  { name: "Mobilier", desc: "Tables, bureaux, bibliothèques — des pièces qui se transmettent." },
+/* ---------- Chiffres clés ---------- */
+export const stats: { value: string; label: string; icon: "teams" | "jersey" | "trophy" | "heart" }[] = [
+  { value: "450+", label: "Licenciés", icon: "teams" },
+  { value: "28", label: "Équipes", icon: "jersey" },
+  { value: "20+", label: "Années d'expérience", icon: "trophy" },
+  { value: "100%", label: "Passion", icon: "heart" },
 ];
 
-export const realisations = [
-  { title: "Cuisine en noyer", place: "Croix-Rousse", year: "2024" },
-  { title: "Escalier suspendu", place: "Confluence", year: "2024" },
-  { title: "Dressing sur-mesure", place: "Brotteaux", year: "2023" },
-  { title: "Bibliothèque toute hauteur", place: "Monplaisir", year: "2023" },
-  { title: "Comptoir de boutique", place: "Presqu'île", year: "2024" },
-  { title: "Table de famille en chêne", place: "Caluire", year: "2023" },
+/* ---------- Équipes ---------- */
+export type Team = { name: string; sub: string };
+export const teams: Team[] = [
+  { name: "Baby Basket", sub: "À partir de 4 ans" },
+  { name: "U7", sub: "Mini Poussins" },
+  { name: "U9", sub: "Poussins" },
+  { name: "U11", sub: "Poussins" },
+  { name: "U13", sub: "Benjamins" },
+  { name: "U15", sub: "Minimes" },
+  { name: "U18", sub: "Cadets" },
+  { name: "Seniors", sub: "Seniors / Seniors F" },
 ];
 
-export const process = [
-  { step: "01", title: "Rencontre", desc: "On visite, on mesure, on écoute votre projet et votre budget." },
-  { step: "02", title: "Conception", desc: "Plans 3D et choix des essences. On affine jusqu'au détail." },
-  { step: "03", title: "Atelier", desc: "Fabrication à la main dans notre atelier, bois sélectionnés." },
-  { step: "04", title: "Pose", desc: "Installation soignée, ajustements sur place, finitions." },
+/* ---------- Partenaires ---------- */
+export type Partner = { name: string };
+export const partners: Partner[] = [
+  { name: "Hauts-de-Seine" },
+  { name: "Asnières-sur-Seine" },
+  { name: "Région Île-de-France" },
+  { name: "Crédit Mutuel" },
+  { name: "Sport Assur" },
 ];
 
-export const communes = [
-  "Lyon 1–9", "Villeurbanne", "Caluire", "Écully", "Tassin", "Sainte-Foy",
-  "Oullins", "Bron", "Vénissieux", "Rillieux", "Dardilly", "Francheville",
-];
+/* ---------- Navigation ---------- */
+export type NavItem = {
+  label: string;
+  href: string;
+  children?: { label: string; href: string }[];
+};
 
-export type Review = { name: string; project: string; text: string };
-export const reviews: Review[] = [
+export const navItems: NavItem[] = [
+  { label: "Accueil", href: "#top" },
   {
-    name: "Hélène & Marc",
-    project: "Cuisine en noyer",
-    text: "Un travail d'orfèvre. Le devis en ligne nous avait donné une fourchette juste, et le résultat dépasse nos attentes.",
+    label: "Club",
+    href: "#club",
+    children: [
+      { label: "Le Club", href: "#club" },
+      { label: "Nos chiffres", href: "#club" },
+      { label: "Actualités", href: "#actus" },
+    ],
   },
   {
-    name: "Sébastien D.",
-    project: "Escalier sur-mesure",
-    text: "Délais tenus, atelier impeccable, et un escalier qui est devenu la pièce maîtresse de la maison.",
+    label: "Équipes 2025-26",
+    href: "#equipes",
+    children: teams.map((t) => ({ label: t.name, href: "#equipes" })),
   },
+  { label: "Vétérans", href: "#equipes" },
   {
-    name: "Camille R.",
-    project: "Dressing",
-    text: "À l'écoute du premier au dernier jour. Chaque recoin est exploité. Je recommande les yeux fermés.",
+    label: "Championnats 2025-26",
+    href: "#actus",
+    children: [
+      { label: "Seniors", href: "#actus" },
+      { label: "Jeunes", href: "#actus" },
+      { label: "Calendrier", href: "#actus" },
+    ],
   },
+  { label: "Gymnases", href: "#contact" },
+  { label: "Contacts", href: "#contact" },
+  { label: "Documents", href: "#contact" },
 ];
 
-export const agency = {
-  name: "Atelier Vernier",
-  tagline: "Menuiserie sur-mesure",
-  baseline: "Le bois, façonné pour durer.",
-  address: "8 quai du Commerce, 69004 Lyon",
-  phone: "04 56 78 90 12",
-  est: "2009",
-  warranty: "Garantie décennale",
+/* ---------- Footer ---------- */
+export const footerLinks = {
+  quick: [
+    { label: "Accueil", href: "#top" },
+    { label: "Le Club", href: "#club" },
+    { label: "Nos Équipes", href: "#equipes" },
+    { label: "Championnats 2025-26", href: "#actus" },
+    { label: "Gymnases", href: "#contact" },
+    { label: "Documents", href: "#contact" },
+    { label: "Contacts", href: "#contact" },
+  ],
+  categories: [
+    { label: "Baby Basket (4-6 ans)", href: "#equipes" },
+    { label: "Jeunes (7-18 ans)", href: "#equipes" },
+    { label: "Seniors", href: "#equipes" },
+    { label: "Vétérans", href: "#equipes" },
+    { label: "Loisirs", href: "#equipes" },
+  ],
 };

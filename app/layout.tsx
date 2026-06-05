@@ -1,29 +1,36 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Hanken_Grotesk } from "next/font/google";
+import { Anton, Oswald, Inter } from "next/font/google";
 import "./globals.css";
 
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
+const anton = Anton({
+  variable: "--font-anton",
   weight: "400",
-  style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
 });
 
-const hanken = Hanken_Grotesk({
-  variable: "--font-hanken",
+const oswald = Oswald({
+  variable: "--font-oswald",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://atelier-vernier.demo"),
-  title: "Atelier Vernier — Menuiserie sur-mesure · Lyon",
+  metadataBase: new URL("https://asnieresbasketball.vercel.app"),
+  title: "Asnières Basketball — Club de basket · Asnières-sur-Seine",
   description:
-    "Menuisier-agenceur : cuisines, dressings, escaliers et mobilier sur-mesure. Devis en ligne. (Site de démonstration — projet concept.)",
+    "Asnières Basketball : plus qu'un club, une passion ! Actualités, équipes 2025-26, gymnases, championnats et inscriptions. Rejoignez l'aventure. (Site de démonstration — club fictif.)",
   openGraph: {
-    title: "Atelier Vernier — Menuiserie sur-mesure",
-    description: "Le bois, façonné pour durer. Demandez votre estimation en ligne.",
+    title: "Asnières Basketball — Plus qu'un club, une passion !",
+    description:
+      "Un club formateur et ambitieux, ouvert à tous les passionnés de basket. Découvrez nos équipes et rejoignez l'aventure.",
     type: "website",
   },
 };
@@ -34,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${instrument.variable} ${hanken.variable} h-full`}
+      className={`${anton.variable} ${oswald.variable} ${inter.variable} h-full`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

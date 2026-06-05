@@ -1,22 +1,34 @@
 import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
-import BeforeAfter from "@/components/BeforeAfter";
-import QuoteFlow from "@/components/QuoteFlow";
+import Logo from "@/components/Logo";
+import NewsCard from "@/components/NewsCard";
+import TeamCard from "@/components/TeamCard";
+import QuickLink from "@/components/QuickLink";
+import NewsletterForm from "@/components/NewsletterForm";
+import { Instagram, Facebook, Mail, Phone, Pin, QuickIcon } from "@/components/icons";
 import {
-  services,
-  realisations,
-  process,
-  communes,
-  reviews,
-  agency,
+  club,
+  news,
+  quickLinks,
+  stats,
+  teams,
+  partners,
+  footerLinks,
 } from "@/lib/data";
 
-function SectionLabel({ index, title }: { index: string; title: string }) {
+function Dots({ count = 3, active = 0 }: { count?: number; active?: number }) {
   return (
-    <div className="flex items-baseline gap-4 mb-10">
-      <span className="eyebrow">{index}</span>
-      <h2 className="display-md text-ink">{title}</h2>
-      <span className="flex-1 rule self-center" />
+    <div className="flex items-center justify-center gap-2">
+      {Array.from({ length: count }).map((_, i) => (
+        <span
+          key={i}
+          className="h-2.5 rounded-full transition-all"
+          style={{
+            width: i === active ? "26px" : "10px",
+            background: i === active ? "var(--red)" : "rgba(255,255,255,0.4)",
+          }}
+        />
+      ))}
     </div>
   );
 }
@@ -25,154 +37,156 @@ export default function Home() {
   return (
     <div id="top" className="flex flex-col flex-1">
       <Nav />
+      {/* Compense la hauteur du header fixe (72px + barre nav 49px desktop) */}
+      <div className="h-[72px] lg:h-[121px]" aria-hidden="true" />
 
       {/* ============ HERO ============ */}
-      <section className="relative min-h-screen flex items-end pb-16 pt-32 px-5 sm:px-8">
-        <div className="mx-auto max-w-[1320px] w-full grid lg:grid-cols-12 gap-10 items-end">
-          <div className="lg:col-span-7">
-            <div className="reveal eyebrow" style={{ animationDelay: "0.05s" }}>
-              {agency.tagline} · Lyon — depuis {agency.est}
-            </div>
-            <h1 className="mt-5 display-xl text-ink">
-              <span className="reveal block" style={{ animationDelay: "0.12s" }}>
-                Le bois,
+      <section className="relative bg-navy text-white overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(60% 80% at 85% 30%, rgba(230,51,41,0.5), transparent 60%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-[1320px] px-5 sm:px-8 py-16 sm:py-20 grid lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-6">
+            <h1 className="display-xl">
+              <span className="reveal block text-white" style={{ animationDelay: "0.05s" }}>
+                Asnières
               </span>
-              <span className="reveal block" style={{ animationDelay: "0.22s" }}>
-                façonné <span className="italic-accent">pour durer.</span>
+              <span className="reveal block text-red" style={{ animationDelay: "0.15s" }}>
+                Basketball
               </span>
             </h1>
             <p
-              className="reveal mt-7 max-w-lg text-lg text-ink-soft leading-relaxed"
-              style={{ animationDelay: "0.34s" }}
+              className="reveal mt-6 font-head text-xl sm:text-2xl font-600 uppercase tracking-wide text-white/90"
+              style={{ animationDelay: "0.28s", fontWeight: 600 }}
             >
-              Cuisines, dressings, escaliers et mobilier sur-mesure, dessinés et
-              fabriqués dans notre atelier lyonnais. Obtenez une estimation
-              chiffrée de votre projet en ligne, en deux minutes.
+              Plus qu’un club,
+              <br />
+              une passion !
             </p>
             <div
               className="reveal mt-9 flex flex-wrap gap-3"
-              style={{ animationDelay: "0.46s" }}
+              style={{ animationDelay: "0.4s" }}
             >
-              <a href="#devis" className="btn">
-                Estimer mon projet
+              <a href="#club" className="btn">
+                Découvrir le club
               </a>
-              <a href="#realisations" className="btn btn-ghost">
-                Voir les réalisations
+              <a href="#contact" className="btn btn-ghost">
+                Nous contacter
               </a>
             </div>
           </div>
 
-          <div className="reveal lg:col-span-5" style={{ animationDelay: "0.4s" }}>
-            <div className="wood-slot aspect-[4/5] w-full rounded-2xl" data-label="Atelier · Lyon 4ᵉ" />
-            <div className="mt-3 flex justify-between font-body text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-ink-soft">
-              <span>{agency.warranty}</span>
-              <span className="text-oak">★ 4,9 · 180 avis</span>
-            </div>
+          <div className="reveal lg:col-span-6" style={{ animationDelay: "0.35s" }}>
+            <div
+              className="ph aspect-[4/3] w-full rounded-xl"
+              data-label="Panier de basket · visuel d'accueil"
+            />
           </div>
+        </div>
+        <div className="relative pb-8">
+          <Dots count={3} active={0} />
         </div>
       </section>
 
-      {/* ============ BANDEAU CHIFFRES ============ */}
-      <div className="border-y border-line bg-paper-2/40">
-        <div className="mx-auto max-w-[1320px] grid grid-cols-2 md:grid-cols-4 divide-x divide-line">
-          {[
-            ["15 ans", "d'atelier"],
-            ["+400", "projets livrés"],
-            ["100 %", "fait main à Lyon"],
-            ["10 ans", "de garantie"],
-          ].map(([n, l]) => (
-            <div key={l} className="px-5 py-8 text-center">
-              <div className="font-display text-4xl text-ink">{n}</div>
-              <div className="mt-1 font-body text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-ink-soft">
-                {l}
-              </div>
+      {/* ============ ACTUALITÉS ============ */}
+      <section id="actus" className="px-5 sm:px-8 py-20 sm:py-24">
+        <div className="mx-auto max-w-[1320px]">
+          <Reveal>
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
+              <h2 className="display-md text-navy flex items-center gap-3">
+                Actualités du club
+                <span className="text-red font-display">{"///"}</span>
+              </h2>
+              <a
+                href={club.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-head text-[0.78rem] font-semibold uppercase tracking-[0.06em] text-red"
+              >
+                <Instagram size={18} /> Suivez-nous sur Instagram
+              </a>
             </div>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {news.map((item, i) => (
+              <Reveal key={item.title} delay={i * 70}>
+                <NewsCard item={item} />
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={120}>
+            <div className="mt-12 flex justify-center">
+              <a href="#actus" className="btn">
+                Voir toutes les actualités
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============ ACCÈS RAPIDES ============ */}
+      <section className="bg-paper border-y border-line">
+        <div className="mx-auto max-w-[1320px] grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-line">
+          {quickLinks.map((link) => (
+            <QuickLink key={link.title} link={link} />
           ))}
         </div>
-      </div>
-
-      {/* ============ SAVOIR-FAIRE ============ */}
-      <section id="savoir-faire" className="px-5 sm:px-8 py-24 sm:py-32">
-        <div className="mx-auto max-w-[1320px]">
-          <Reveal>
-            <SectionLabel index="01" title="Savoir-faire" />
-          </Reveal>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((s, i) => (
-              <Reveal key={s.name} delay={i * 70}>
-                <div className="h-full">
-                  <div className="font-display text-5xl text-paper-3">
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <h3 className="font-display text-3xl text-ink mt-2 leading-none">{s.name}</h3>
-                  <p className="mt-3 text-ink-soft leading-relaxed">{s.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
       </section>
 
-      {/* ============ AVANT / APRÈS ============ */}
-      <section className="px-5 sm:px-8 pb-24 sm:pb-32">
-        <div className="mx-auto max-w-[1320px] grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-5">
-            <Reveal>
-              <span className="eyebrow">La transformation</span>
-              <p className="display-lg text-ink mt-4">
-                Avant,<br />
-                <span className="italic-accent">après.</span>
-              </p>
+      {/* ============ REJOIGNEZ L'AVENTURE ============ */}
+      <section id="club" className="px-5 sm:px-8 py-20 sm:py-24">
+        <div className="mx-auto max-w-[1320px] grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <Reveal>
+            <div>
+              <h2 className="display-lg text-navy">Rejoignez l’aventure !</h2>
               <p className="mt-5 text-ink-soft leading-relaxed max-w-md">
-                Une pièce banale devient une pièce de caractère. Glissez le
-                curseur pour mesurer le chemin parcouru sur l'un de nos chantiers.
+                Que vous soyez joueur, coach, bénévole ou supporter, il y a une
+                place pour vous dans la famille Asnières Basketball.
               </p>
-            </Reveal>
-          </div>
-          <div className="lg:col-span-7">
-            <Reveal delay={120}>
-              <BeforeAfter before="Existant" after="Cuisine noyer" />
-            </Reveal>
-          </div>
+              <a href="#contact" className="btn btn-navy mt-8">
+                Découvrir le club
+              </a>
+            </div>
+          </Reveal>
+          <Reveal delay={120}>
+            <div
+              className="ph aspect-[16/10] w-full rounded-xl"
+              data-label="Ballon sur le terrain · ambiance"
+            />
+          </Reveal>
         </div>
       </section>
 
-      {/* ============ RÉALISATIONS ============ */}
-      <section id="realisations" className="px-5 sm:px-8 py-24 sm:py-32 bg-paper-2/40 border-y border-line">
-        <div className="mx-auto max-w-[1320px]">
+      {/* ============ LE CLUB + STATS ============ */}
+      <section className="px-5 sm:px-8 pb-20 sm:pb-24">
+        <div className="mx-auto max-w-[1320px] text-center">
           <Reveal>
-            <SectionLabel index="02" title="Réalisations" />
+            <span className="eyebrow">Le Club</span>
+            <h2 className="display-md text-navy mt-3">Asnières Basketball</h2>
+            <p className="mt-4 max-w-2xl mx-auto text-ink-soft leading-relaxed">
+              Un club formateur et ambitieux, ouvert à tous les passionnés de
+              basket. Des valeurs de respect, de solidarité et de dépassement de
+              soi.
+            </p>
           </Reveal>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {realisations.map((r, i) => (
-              <Reveal key={r.title} delay={i * 50}>
-                <figure>
-                  <div
-                    className="wood-slot w-full rounded-xl"
-                    style={{ aspectRatio: i % 4 === 0 ? "1 / 1.25" : "1 / 1" }}
-                    data-label={`${r.place} · ${r.year}`}
-                  />
-                  <figcaption className="mt-2 font-display text-xl text-ink">{r.title}</figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ============ MÉTHODE ============ */}
-      <section id="process" className="px-5 sm:px-8 py-24 sm:py-32">
-        <div className="mx-auto max-w-[1320px]">
-          <Reveal>
-            <SectionLabel index="03" title="Notre méthode" />
-          </Reveal>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-line rounded-2xl overflow-hidden">
-            {process.map((p, i) => (
-              <Reveal key={p.step} delay={i * 70}>
-                <div className="bg-paper p-7 h-full">
-                  <span className="font-display text-5xl text-oak">{p.step}</span>
-                  <h3 className="font-display text-2xl text-ink mt-3">{p.title}</h3>
-                  <p className="mt-2 text-ink-soft leading-relaxed">{p.desc}</p>
+          <div className="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+            {stats.map((s, i) => (
+              <Reveal key={s.label} delay={i * 70}>
+                <div className="flex flex-col items-center">
+                  <QuickIcon name={s.icon} size={34} className="text-navy" />
+                  <div className="mt-3 font-display text-5xl sm:text-6xl text-red">
+                    {s.value}
+                  </div>
+                  <div className="mt-1.5 font-head text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft">
+                    {s.label}
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -180,127 +194,191 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ ZONE D'INTERVENTION ============ */}
-      <section className="px-5 sm:px-8 pb-24 sm:pb-32">
-        <div className="mx-auto max-w-[1320px] grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-5">
-            <Reveal>
-              <span className="eyebrow">Zone d'intervention</span>
-              <p className="display-md text-ink mt-4">Lyon & sa métropole.</p>
-              <p className="mt-4 text-ink-soft leading-relaxed">
-                Nous intervenons dans un rayon de 30 km autour de l'atelier. Un
-                projet plus loin ? Parlons-en.
-              </p>
-            </Reveal>
-          </div>
-          <div className="lg:col-span-7">
-            <Reveal delay={100}>
-              <div className="flex flex-wrap gap-2">
-                {communes.map((c) => (
-                  <span
-                    key={c}
-                    className="px-4 py-2 rounded-full border border-line text-sm text-ink-soft bg-paper hover:border-forest hover:text-ink transition-colors"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ AVIS ============ */}
-      <section id="avis" className="px-5 sm:px-8 py-24 sm:py-32 bg-paper-2/40 border-y border-line">
+      {/* ============ NOS ÉQUIPES ============ */}
+      <section id="equipes" className="px-5 sm:px-8 py-20 sm:py-24 bg-paper border-y border-line">
         <div className="mx-auto max-w-[1320px]">
           <Reveal>
-            <SectionLabel index="04" title="Ils nous ont fait confiance" />
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
+              <h2 className="display-md text-navy">Nos Équipes 2025-26</h2>
+              <a href="#equipes" className="btn btn-navy">
+                Voir toutes les équipes
+              </a>
+            </div>
           </Reveal>
-          <div className="grid md:grid-cols-3 gap-6">
-            {reviews.map((r, i) => (
-              <Reveal key={r.name} delay={i * 90}>
-                <figure className="bg-paper border border-line rounded-2xl p-7 h-full flex flex-col">
-                  <span className="text-oak tracking-[0.2em]">★★★★★</span>
-                  <blockquote className="mt-4 font-display text-xl text-ink leading-snug flex-1">
-                    « {r.text} »
-                  </blockquote>
-                  <figcaption className="mt-5">
-                    <span className="font-body font-semibold text-ink">{r.name}</span>
-                    <span className="block font-body text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-ink-soft mt-0.5">
-                      {r.project}
-                    </span>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
+
+          <Reveal delay={80}>
+            <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 lg:grid lg:grid-cols-8 lg:gap-3 lg:overflow-visible">
+              {teams.map((team) => (
+                <TeamCard key={team.name} team={team} />
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============ PARTENAIRES ============ */}
+      <section id="partenaires" className="bg-navy text-white px-5 sm:px-8 py-16 sm:py-20">
+        <div className="mx-auto max-w-[1320px]">
+          <Reveal>
+            <h2 className="display-md text-white text-center">Nos Partenaires</h2>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              {partners.map((p) => (
+                <div
+                  key={p.name}
+                  className="ph ph-light aspect-[5/2] rounded-lg flex items-center justify-center"
+                  data-label=""
+                >
+                  <span className="relative z-10 px-2 text-center font-head text-sm font-semibold text-ink">
+                    {p.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <div className="mt-10">
+            <Dots count={3} active={0} />
           </div>
         </div>
       </section>
 
-      {/* ============ DEVIS ============ */}
-      <section id="devis" className="px-5 sm:px-8 py-24 sm:py-32">
-        <div className="mx-auto max-w-[1320px] grid lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4">
-            <Reveal>
-              <span className="eyebrow">05 — Devis en ligne</span>
-              <h2 className="display-lg text-ink mt-4">
-                Votre projet,<br /><span className="italic-accent">chiffré.</span>
-              </h2>
-              <p className="mt-5 text-ink-soft leading-relaxed">
-                Choisissez votre projet, ses dimensions et son essence : vous
-                obtenez une fourchette immédiate. Le devis détaillé reste gratuit
-                et sans engagement.
+      {/* ============ NEWSLETTER ============ */}
+      <section
+        id="newsletter"
+        className="px-5 sm:px-8 py-14"
+        style={{
+          background: "linear-gradient(120deg, var(--red), var(--navy))",
+        }}
+      >
+        <div className="mx-auto max-w-[1320px] flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+          <div className="flex items-center gap-5 flex-1">
+            <span className="hidden sm:flex items-center justify-center w-16 h-16 rounded-full bg-white text-red shrink-0">
+              <Mail size={26} />
+            </span>
+            <div>
+              <h2 className="title-sm text-2xl text-white">Restez informés</h2>
+              <p className="mt-1 font-body text-sm text-white/80 max-w-md">
+                Abonnez-vous à notre newsletter pour recevoir les dernières
+                actualités du club.
               </p>
-              <dl className="mt-9 space-y-4">
-                {[
-                  ["Atelier", agency.address],
-                  ["Téléphone", agency.phone],
-                  ["Garantie", agency.warranty],
-                ].map(([k, v]) => (
-                  <div key={k} className="border-t border-line pt-3">
-                    <dt className="font-body text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-ink-soft">
-                      {k}
-                    </dt>
-                    <dd className="text-ink mt-1">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </Reveal>
+            </div>
           </div>
-          <div className="lg:col-span-8">
-            <Reveal delay={120}>
-              <QuoteFlow />
-            </Reveal>
-          </div>
+          <NewsletterForm />
         </div>
       </section>
 
       {/* ============ FOOTER ============ */}
-      <footer className="border-t border-line px-5 sm:px-8 pt-16 pb-8 bg-paper-2/50">
+      <footer id="contact" className="bg-navy-deep text-white px-5 sm:px-8 pt-16 pb-8">
         <div className="mx-auto max-w-[1320px]">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+          <div className="grid gap-10 lg:gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {/* Marque */}
             <div>
-              <p className="display-lg text-ink leading-none">{agency.name}</p>
-              <p className="mt-3 font-body text-sm text-ink-soft">
-                {agency.baseline} · {agency.address}
+              <Logo size={48} variant="light" />
+              <p className="mt-5 font-body text-sm text-white/70 leading-relaxed max-w-xs">
+                {club.baseline}
               </p>
+              <div className="mt-5 flex items-center gap-4">
+                <a
+                  href={club.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="flex items-center justify-center w-9 h-9 rounded-md bg-white/10 text-white hover:bg-red transition-colors"
+                >
+                  <Instagram size={18} />
+                </a>
+                <a
+                  href={club.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  className="flex items-center justify-center w-9 h-9 rounded-md bg-white/10 text-white hover:bg-red transition-colors"
+                >
+                  <Facebook size={18} />
+                </a>
+              </div>
             </div>
-            <a href="#devis" className="btn self-start lg:self-auto">
-              Estimer mon projet
-            </a>
+
+            {/* Accès rapides */}
+            <div>
+              <h3 className="title-sm text-sm text-white tracking-[0.08em]">
+                Accès rapides
+              </h3>
+              <ul className="mt-5 space-y-2.5">
+                {footerLinks.quick.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      className="font-body text-sm text-white/70 hover:text-white transition-colors"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Catégories */}
+            <div>
+              <h3 className="title-sm text-sm text-white tracking-[0.08em]">
+                Catégories
+              </h3>
+              <ul className="mt-5 space-y-2.5">
+                {footerLinks.categories.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      className="font-body text-sm text-white/70 hover:text-white transition-colors"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Nous contacter */}
+            <div>
+              <h3 className="title-sm text-sm text-white tracking-[0.08em]">
+                Nous contacter
+              </h3>
+              <ul className="mt-5 space-y-3.5 font-body text-sm text-white/70">
+                <li className="flex items-start gap-3">
+                  <Pin size={18} className="mt-0.5 shrink-0 text-red" />
+                  <span>
+                    {club.name}
+                    <br />
+                    {club.address}
+                    <br />
+                    {club.city}
+                  </span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone size={18} className="shrink-0 text-red" />
+                  <a href={`tel:${club.phone.replace(/\s/g, "")}`} className="hover:text-white transition-colors">
+                    {club.phone}
+                  </a>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Mail size={18} className="shrink-0 text-red" />
+                  <a href={`mailto:${club.email}`} className="hover:text-white transition-colors break-all">
+                    {club.email}
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <div className="mt-12 pt-6 border-t border-line flex flex-col sm:flex-row gap-4 justify-between font-body text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-ink-soft">
-            <span>Projet de démonstration — enseigne fictive. Aucun établissement réel.</span>
-            <span>
-              Conçu & développé par{" "}
-              <a
-                href="https://lucasrblt.me"
-                className="link-u text-ink"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Lucas Rimbault
+          <div className="mt-14 pt-6 border-t border-white/12 flex flex-col sm:flex-row gap-3 justify-between font-body text-xs text-white/55">
+            <span>© 2026 {club.name} — Tous droits réservés</span>
+            <span className="flex gap-4">
+              <a href="#contact" className="hover:text-white transition-colors">
+                Mentions légales
+              </a>
+              <span className="text-white/25">|</span>
+              <a href="#contact" className="hover:text-white transition-colors">
+                Politique de confidentialité
               </a>
             </span>
           </div>
