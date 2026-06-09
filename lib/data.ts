@@ -100,13 +100,13 @@ export const teams: Team[] = [
 ];
 
 /* ---------- Partenaires ---------- */
-export type Partner = { name: string };
+export type Partner = { name: string; logo: string };
 export const partners: Partner[] = [
-  { name: "Hauts-de-Seine" },
-  { name: "Asnières-sur-Seine" },
-  { name: "Région Île-de-France" },
-  { name: "Crédit Mutuel" },
-  { name: "Sport Assur" },
+  { name: "Hauts-de-Seine", logo: "/partners/hauts-de-seine.png" },
+  { name: "Mairie d'Asnières-sur-Seine", logo: "/partners/asnieres-sur-seine.png" },
+  { name: "Région Île-de-France", logo: "/partners/region-idf.png" },
+  { name: "Crédit Mutuel", logo: "/partners/credit-mutuel.png" },
+  { name: "Assure Ton Sport", logo: "/partners/assure-ton-sport.webp" },
 ];
 
 /* ---------- Navigation ---------- */

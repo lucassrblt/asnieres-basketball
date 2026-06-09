@@ -9,13 +9,32 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openSub, setOpenSub] = useState<string | null>(null);
+  const [activeHref, setActiveHref] = useState("#top");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
+    // Ancres de sections uniques présentes dans la nav, dans l'ordre du DOM
+    const anchors = Array.from(new Set(navItems.map((i) => i.href))).filter((h) =>
+      h.startsWith("#")
+    );
+
+    const onScroll = () => {
+      setScrolled(window.scrollY > 30);
+      // Scroll-spy : dernière section dont le haut est passé sous le header
+      const offset = 140;
+      let current = "#top";
+      for (const href of anchors) {
+        const el = document.querySelector(href);
+        if (el && el.getBoundingClientRect().top <= offset) current = href;
+      }
+      setActiveHref(current);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Premier item correspondant à la section active (évite les doublons d'ancres)
+  const activeIndex = navItems.findIndex((i) => i.href === activeHref);
 
   return (
     <header
@@ -73,11 +92,18 @@ export default function Nav() {
       {/* Rangée nav desktop */}
       <nav className="hidden lg:block border-t border-line">
         <ul className="mx-auto max-w-[1320px] px-5 sm:px-8 flex items-center gap-1">
-          {navItems.map((item) => (
+          {navItems.map((item, idx) => {
+            const isActive = idx === activeIndex;
+            return (
             <li key={item.label} className="relative group">
               <a
                 href={item.href}
-                className="flex items-center gap-1 px-3.5 py-3 font-head text-[0.78rem] font-600 uppercase tracking-[0.06em] text-navy hover:text-red transition-colors border-b-2 border-transparent group-hover:border-red"
+                onClick={() => setActiveHref(item.href)}
+                className={`flex items-center gap-1 px-3.5 py-3 font-head text-[0.78rem] font-600 uppercase tracking-[0.06em] transition-colors border-b-2 ${
+                  isActive
+                    ? "text-red border-red"
+                    : "text-navy border-transparent hover:text-red group-hover:border-red"
+                }`}
                 style={{ fontWeight: 600 }}
               >
                 {item.label}
@@ -98,7 +124,8 @@ export default function Nav() {
                 </ul>
               )}
             </li>
-          ))}
+            );
+          })}
         </ul>
       </nav>
 

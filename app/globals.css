@@ -225,6 +225,30 @@ body {
   filter: grayscale(1);
 }
 
+/* Visuel sombre « façon photo » pour les cartes actus (sans asset) */
+.ph-dark {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(85% 65% at 50% 0%, rgba(230, 51, 41, 0.22), transparent 58%),
+    radial-gradient(75% 70% at 82% 100%, rgba(35, 53, 119, 0.5), transparent 62%),
+    linear-gradient(160deg, #16235c 0%, #0b1233 55%, #060a1e 100%);
+}
+.ph-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.04) 0,
+    rgba(255, 255, 255, 0.04) 2px,
+    transparent 2px,
+    transparent 12px
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
 /* ---------- Animations ---------- */
 @keyframes rise {
   from {

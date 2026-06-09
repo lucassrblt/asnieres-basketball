@@ -1,16 +1,14 @@
 import type { News } from "@/lib/data";
 import { Clock, User } from "@/components/icons";
 
-export default function NewsCard({ item }: { item: News }) {
+export default function NewsCard({ item, index = 0 }: { item: News; index?: number }) {
+  const badgeColor = index % 2 === 0 ? "bg-red" : "bg-navy";
   return (
     <article className="group flex flex-col bg-white border border-line rounded-lg overflow-hidden h-full transition-shadow duration-300 hover:shadow-[0_12px_30px_rgba(22,35,92,0.12)]">
       {/* Visuel + badge date */}
       <div className="relative">
-        <div
-          className="ph aspect-[16/10] w-full"
-          data-label={`${item.title} · photo`}
-        />
-        <div className="absolute top-0 left-4 bg-red text-white text-center px-3 py-2 leading-none shadow-md">
+        <div className="ph-dark aspect-[16/10] w-full" />
+        <div className={`absolute top-0 left-4 ${badgeColor} text-white text-center px-3 py-2 leading-none shadow-md`}>
           <span className="block font-display text-2xl">{item.day}</span>
           <span className="block font-head text-[0.6rem] font-semibold uppercase tracking-[0.12em] mt-1">
             {item.month}

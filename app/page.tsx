@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
 import Logo from "@/components/Logo";
@@ -41,15 +42,48 @@ export default function Home() {
       <div className="h-[72px] lg:h-[121px]" aria-hidden="true" />
 
       {/* ============ HERO ============ */}
-      <section className="relative bg-navy text-white overflow-hidden">
+      <section className="relative bg-navy text-white overflow-hidden lg:min-h-[600px] flex flex-col justify-center">
+        {/* Filigrane lion */}
+        <div className="absolute inset-y-0 left-0 w-full lg:w-[55%] pointer-events-none flex items-center justify-center lg:justify-start lg:pl-[6%]">
+          <Image
+            src="/logo.png"
+            alt=""
+            width={620}
+            height={620}
+            aria-hidden="true"
+            className="w-[420px] sm:w-[520px] lg:w-[600px] h-auto opacity-[0.10] mix-blend-screen select-none"
+          />
+        </div>
+        {/* Accent rouge */}
         <div
-          className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          className="absolute inset-0 opacity-[0.16] pointer-events-none"
           style={{
             background:
-              "radial-gradient(60% 80% at 85% 30%, rgba(230,51,41,0.5), transparent 60%)",
+              "radial-gradient(55% 75% at 80% 35%, rgba(230,51,41,0.5), transparent 60%)",
           }}
         />
-        <div className="relative mx-auto max-w-[1320px] px-5 sm:px-8 py-16 sm:py-20 grid lg:grid-cols-12 gap-10 items-center">
+
+        {/* Image panier — desktop : déborde à droite, fondue dans le navy */}
+        <div className="hidden lg:block absolute inset-y-0 right-0 w-[54%] pointer-events-none">
+          <Image
+            src="/hero-panier.png"
+            alt="Panier de basket avec ballon"
+            fill
+            priority
+            sizes="54vw"
+            className="object-cover object-center"
+          />
+          {/* Fondus vers le navy */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, var(--navy) 0%, rgba(22,35,92,0.35) 28%, transparent 48%), linear-gradient(0deg, var(--navy) 0%, transparent 18%), linear-gradient(180deg, var(--navy) 0%, transparent 16%)",
+            }}
+          />
+        </div>
+
+        <div className="relative z-10 mx-auto w-full max-w-[1320px] px-5 sm:px-8 py-16 sm:py-20 grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-6">
             <h1 className="display-xl">
               <span className="reveal block text-white" style={{ animationDelay: "0.05s" }}>
@@ -78,17 +112,34 @@ export default function Home() {
                 Nous contacter
               </a>
             </div>
+            <div
+              className="reveal mt-10 flex justify-start"
+              style={{ animationDelay: "0.5s" }}
+            >
+              <Dots count={3} active={0} />
+            </div>
           </div>
 
-          <div className="reveal lg:col-span-6" style={{ animationDelay: "0.35s" }}>
+          {/* Image panier — mobile : empilée, fondue */}
+          <div
+            className="reveal lg:hidden relative aspect-[4/3] w-full overflow-hidden"
+            style={{ animationDelay: "0.35s" }}
+          >
+            <Image
+              src="/hero-panier.png"
+              alt="Panier de basket avec ballon"
+              fill
+              sizes="100vw"
+              className="object-cover object-center"
+            />
             <div
-              className="ph aspect-[4/3] w-full rounded-xl"
-              data-label="Panier de basket · visuel d'accueil"
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(0deg, var(--navy) 0%, transparent 22%), linear-gradient(180deg, var(--navy) 0%, transparent 18%)",
+              }}
             />
           </div>
-        </div>
-        <div className="relative pb-8">
-          <Dots count={3} active={0} />
         </div>
       </section>
 
@@ -115,7 +166,7 @@ export default function Home() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {news.map((item, i) => (
               <Reveal key={item.title} delay={i * 70}>
-                <NewsCard item={item} />
+                <NewsCard item={item} index={i} />
               </Reveal>
             ))}
           </div>
@@ -155,10 +206,23 @@ export default function Home() {
             </div>
           </Reveal>
           <Reveal delay={120}>
-            <div
-              className="ph aspect-[16/10] w-full rounded-xl"
-              data-label="Ballon sur le terrain · ambiance"
-            />
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl lg:rounded-none lg:[clip-path:polygon(9%_0,100%_0,100%_100%,0_100%)]">
+              <Image
+                src="/rejoindre-aventure.png"
+                alt="Ballon de basket posé sur le terrain dans une ambiance lumineuse"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+              {/* Voile bleu/navy pour l'ambiance du mockup */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(100deg, rgba(15,26,69,0.85) 0%, rgba(15,26,69,0.25) 32%, transparent 52%), radial-gradient(60% 90% at 12% 55%, rgba(35,53,119,0.55), transparent 60%)",
+                }}
+              />
+            </div>
           </Reveal>
         </div>
       </section>
@@ -227,12 +291,15 @@ export default function Home() {
               {partners.map((p) => (
                 <div
                   key={p.name}
-                  className="ph ph-light aspect-[5/2] rounded-lg flex items-center justify-center"
-                  data-label=""
+                  className="relative aspect-[5/2.2] rounded-lg bg-white"
                 >
-                  <span className="relative z-10 px-2 text-center font-head text-sm font-semibold text-ink">
-                    {p.name}
-                  </span>
+                  <Image
+                    src={p.logo}
+                    alt={p.name}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                    className="object-contain px-6 py-4"
+                  />
                 </div>
               ))}
             </div>
